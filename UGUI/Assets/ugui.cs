@@ -12,34 +12,32 @@ public class ugui : MonoBehaviour {
 
 	private Text txt;
 	private Image img;
+	private Button btn;
 
 	void Start() {
-		//Init Text:
+		//Text:
 		txt = this.gameObject.GetComponentInChildren<Text> ();
 		txt.color = new Color (0f, 1f, 0f, 1f);
 		txt.text = "Hello, Unity..";
 
-		//Init Image:
+		//Image:
 		img = this.gameObject.GetComponentInChildren<Image> ();
-		loadImageAsync (img, imgPath);
+		StartCoroutine(loadImage (img, uri));//Use coroutine to load image from URL
+
+		//Button:
+		btn = this.gameObject.GetComponentInChildren<Button> ();
+		btn.onClick.AddListener (//Add listener dynamically
+			delegate() {
+				txt.color = new Color (0f, 0f, 1f, 1f);
+				txt.text = "Button is clicked..";
+			}
+		);
 	}
 
-	public void onBtnClcik() {
-		Debug.Log ("Button is clicked..");
-		txt.color = new Color (0f, 0f, 1f, 1f);
-		txt.text = "Button is clicked..";
-	}
-
-
-	private void loadImageAsync (Image img, string uri) {
-		//Use coroutine to load
-		StartCoroutine(loadImage (img, uri));
-	}
 
 	private IEnumerator loadImage (Image img, string uri) {
 		WWW www = new WWW(uri);
-		//Wait for the download
-		yield return www;
+		yield return www;//Wait for data fetching
 		if (www.texture != null) {
 			Sprite sprite = Sprite.Create(www.texture, 
 				new Rect (0, 0, www.texture.width, www.texture.height), 
