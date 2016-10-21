@@ -14,7 +14,7 @@ public class ugui : MonoBehaviour {
 	private Image img;
 	private Button btn;
 
-	void Start() {
+	void Start () {
 		//Text:
 		txt = this.gameObject.GetComponentInChildren<Text> ();
 		txt.color = new Color (0f, 1f, 0f, 1f);
@@ -22,7 +22,7 @@ public class ugui : MonoBehaviour {
 
 		//Image:
 		img = this.gameObject.GetComponentInChildren<Image> ();
-		StartCoroutine(loadImage (img, uri));//Use coroutine to async-load
+		StartCoroutine (loadImage (img, imgPath));//Use coroutine to async-load
 
 		//Button:
 		btn = this.gameObject.GetComponentInChildren<Button> ();
@@ -36,12 +36,12 @@ public class ugui : MonoBehaviour {
 
 
 	private IEnumerator loadImage (Image img, string uri) {
-		WWW www = new WWW(uri);
-		yield return www;//Wait for data fetching
+		WWW www = new WWW (uri);
+		yield return www;//Block, wait for data fetching
 		if (www.texture != null) {
-			Sprite sprite = Sprite.Create(www.texture, 
-				new Rect (0, 0, www.texture.width, www.texture.height), 
-				new Vector2 (0.5f, 0.5f));
+			Sprite sprite = Sprite.Create (www.texture, 
+				                new Rect (0, 0, www.texture.width, www.texture.height), 
+				                new Vector2 (0.5f, 0.5f));
 			img.sprite = sprite;
 		}
 	}
