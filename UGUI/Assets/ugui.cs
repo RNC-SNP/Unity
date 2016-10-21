@@ -22,7 +22,7 @@ public class ugui : MonoBehaviour {
 
 		//Image:
 		img = this.gameObject.GetComponentInChildren<Image> ();
-		StartCoroutine(loadImage (img, uri));//Use coroutine to load image from URL
+		StartCoroutine(loadImage (img, uri));//Use coroutine to async-load
 
 		//Button:
 		btn = this.gameObject.GetComponentInChildren<Button> ();
