@@ -13,15 +13,14 @@ public class CubeControl : MonoBehaviour {
 	void Start () {
 		mTransform = this.transform;
 		screenWidth = Screen.width;
-		this.gameObject.GetComponent<Rigidbody> ().useGravity = false;
+		//this.gameObject.GetComponent<Rigidbody> ().useGravity = false;
 	}
 
 	void Update () {
 		mTransform.Translate (new Vector3(0, 0, translateSpeedZ * Time.deltaTime));
 		mTransform.Rotate (new Vector3(0, rotateSpeedY * Time.deltaTime, 0));
 		//Handle touch events:
-		for (int i = 0; i < Input.touchCount; i++) {
-			Touch touch = Input.touches [i];
+		foreach (Touch touch in Input.touches) {
 			Vector2 pos = touch.position;
 			Debug.Log ("Touch at: " + pos.x + ", " + pos.y);
 			if (touch.phase == TouchPhase.Moved) {
